@@ -15,6 +15,8 @@ Fully Functional Claw Machine using Gear Rack and Pinion assisted with 4x motors
 
 **2. How it Works**
 
+SVG file -> Laser Cutter Machine (material: 3mm wood)
+
 X-Y axis is controlled with Joystick input
 
 Z axis is controlled with switch (clockwise, counter clockwise)

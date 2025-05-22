@@ -1,8 +1,9 @@
-![image](https://github.com/user-attachments/assets/bf6ab06a-7029-41c4-8e80-df50e778fa1d)# Claw-Machine-2025
+# Claw-Machine-2025
 
 Claw Machine using 4 motors with 1 Arduino Uno
 
 **0. Project Abstract**
+
 Fully Functional Claw Machine using Gear Rack and Pinion assisted with 4x motors and 1x Arduino Uno
 
 **1. Hardware**

@@ -1,0 +1,104 @@
+// ----- X축 스텝모터 핀 -----
+const int X_IN1 = 2;
+const int X_IN2 = 3;
+const int X_IN3 = 4;
+const int X_IN4 = 5;
+
+// ----- Y축 TT모터 핀 -----
+const int Y_IN1 = 6;
+const int Y_IN2 = 7;
+
+// ----- Z축 스텝모터 핀 -----
+const int Z_IN1 = 8;
+const int Z_IN2 = 9;
+const int Z_IN3 = 10;
+const int Z_IN4 = 11;
+
+// ----- 조이스틱 및 버튼 -----
+const int joyX = A0;
+const int joyY = A1;
+const int joyBtn = 12;
+const int grabBtn = 13;
+
+// ----- 모터 스텝 시퀀스 -----
+const int stepSequence[4][4] = {
+  {1, 0, 0, 1},
+  {1, 1, 0, 0},
+  {0, 1, 1, 0},
+  {0, 0, 1, 1}
+};
+
+void setup() {
+  // X축 스텝모터 핀 출력
+  for (int pin = 2; pin <= 5; pin++) {
+    pinMode(pin, OUTPUT);
+  }
+
+  // Y축 TT모터 핀 출력
+  pinMode(Y_IN1, OUTPUT);
+  pinMode(Y_IN2, OUTPUT);
+
+  // Z축 스텝모터 핀 출력
+  for (int pin = 8; pin <= 11; pin++) {
+    pinMode(pin, OUTPUT);
+  }
+
+  // 버튼 입력
+  pinMode(joyBtn, INPUT_PULLUP);
+  pinMode(grabBtn, INPUT_PULLUP);
+}
+
+void loop() {
+  // --- 조이스틱 입력 ---
+  int xVal = analogRead(joyX);
+  int yVal = analogRead(joyY);
+  bool grab = digitalRead(grabBtn) == LOW;
+
+  // --- X축 스텝모터 제어 ---
+  if (xVal < 400) {
+    stepXMotor(true); // 왼쪽
+  } else if (xVal > 600) {
+    stepXMotor(false); // 오른쪽
+  }
+
+  // --- Y축 TT모터 제어 ---
+  if (yVal < 400) {
+    digitalWrite(Y_IN1, HIGH);
+    digitalWrite(Y_IN2, LOW);
+  } else if (yVal > 600) {
+    digitalWrite(Y_IN1, LOW);
+    digitalWrite(Y_IN2, HIGH);
+  } else {
+    digitalWrite(Y_IN1, LOW);
+    digitalWrite(Y_IN2, LOW);
+  }
+
+  // --- Z축 스텝모터: 버튼 누를 때만 동작 ---
+  if (grab) {
+    stepZMotor(true);  // 감기
+  }
+}
+
+// ----- X축 스텝모터 제어 함수 -----
+void stepXMotor(bool dir) {
+  for (int i = 0; i < 4; i++) {
+    int stepIndex = dir ? i : 3 - i;
+    digitalWrite(X_IN1, stepSequence[stepIndex][0]);
+    digitalWrite(X_IN2, stepSequence[stepIndex][1]);
+    digitalWrite(X_IN3, stepSequence[stepIndex][2]);
+    digitalWrite(X_IN4, stepSequence[stepIndex][3]);
+    delay(2); // 속도 조절
+  }
+}
+
+// ----- Z축 스텝모터 제어 함수 -----
+void stepZMotor(bool dir) {
+  for (int i = 0; i < 4; i++) {
+    int stepIndex = dir ? i : 3 - i;
+    digitalWrite(Z_IN1, stepSequence[stepIndex][0]);
+    digitalWrite(Z_IN2, stepSequence[stepIndex][1]);
+    digitalWrite(Z_IN3, stepSequence[stepIndex][2]);
+    digitalWrite(Z_IN4, stepSequence[stepIndex][3]);
+    delay(2); // 감는 속도
+  }
+}

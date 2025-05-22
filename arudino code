@@ -1,3 +1,5 @@
+#include <Servo.h>
+
 // ----- X축 스텝모터 핀 -----
 const int X_IN1 = 2;
 const int X_IN2 = 3;
@@ -19,6 +21,12 @@ const int joyX = A0;
 const int joyY = A1;
 const int joyBtn = 12;
 const int grabBtn = 13;
+
+// ----- 서보모터 및 스위치 -----
+const int servoPin = A3;   // 서보 제어 핀
+const int switchPin = A4;  // 스위치 입력 핀
+Servo myServo;
+bool servoOn = false;
 
 // ----- 모터 스텝 시퀀스 -----
 const int stepSequence[4][4] = {
@@ -42,6 +50,11 @@ void setup() {
   // 버튼 입력
   pinMode(joyBtn, INPUT_PULLUP);
   pinMode(grabBtn, INPUT_PULLUP);
+
+  // 서보 설정
+  myServo.attach(servoPin);
+  pinMode(switchPin, INPUT_PULLUP);
+  myServo.write(0);  // 초기 위치
 }
 
 void loop() {
@@ -51,9 +64,9 @@ void loop() {
 
   // X축 제어
   if (xVal < 400) {
-    stepXMotor(true);  // 왼쪽
+    stepXMotor(false);  // 왼쪽
   } else if (xVal > 600) {
-    stepXMotor(false); // 오른쪽
+    stepXMotor(true);   // 오른쪽
   }
 
   // Y축 제어
@@ -71,6 +84,16 @@ void loop() {
   // Z축 제어
   if (grab) {
     stepZMotor(true);  // 감기
+  }
+
+  // 서보 제어 (스위치 누를 때마다 토글)
+  if (digitalRead(switchPin) == LOW) {
+    delay(50);  // 디바운싱
+    if (digitalRead(switchPin) == LOW) {
+      servoOn = !servoOn;
+      myServo.write(servoOn ? 90 : 0);
+      while (digitalRead(switchPin) == LOW);  // 버튼 떼기 기다림
+    }
   }
 }
 

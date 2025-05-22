@@ -13,17 +13,25 @@ Fully Functional Claw Machine using Gear Rack and Pinion assisted with 4x motors
 **2. How it Works**
 
 X-Y axis is controlled with Joystick input
+
 Z axis is controlled with switch (clockwise, counter clockwise)
+
 Claw is controlled with Digital Push button
 
 **3. Pinwork**
 
 X axis: Arduino Uno D 2-5
+
 Y axis: Arduino Uno D 6, 7
+
 Z axis: Arduino Uno D 8, 9, 10, 11
+
 Claw Input(Servo Motor) : Arduino Uno D 13
+
 Joy Stick: Arduino Uno A 0, 1
+
 Claw Switch : Arduino Uno A3
+
 Switch 2, 3(Servo Motor): A 4 , 5 <- The pins are Analog but for Uno, it can also take Digital Input as well.
 
 **4. Final Work**
@@ -31,5 +39,7 @@ Switch 2, 3(Servo Motor): A 4 , 5 <- The pins are Analog but for Uno, it can als
 ![image](https://github.com/user-attachments/assets/dc0d535e-0873-4199-abb3-c66167ff16b8)
 
 **5. Ways to Improve**
+
 X, Y axis is controlled with Joystick, and each axis are controlled with different units.
+
 However, signal noise occurs and affect the other axis. This can be upgraded using better joy stick module.

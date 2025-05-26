@@ -43,6 +43,12 @@ Switch 2, 3(Servo Motor): A 4 , 5 <- The pins are Analog but for Uno, it can als
 
 **4. Final Work**
 
+![image](https://github.com/user-attachments/assets/0306a0bb-6f43-41e9-b0a5-a9f8dd5050e5)
+
+
+![image](https://github.com/user-attachments/assets/320f6d24-65d5-4ac7-927a-5099bcfb82e3)
+
+
 ![image](https://github.com/user-attachments/assets/dc0d535e-0873-4199-abb3-c66167ff16b8)
 
 
